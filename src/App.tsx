@@ -1,7 +1,7 @@
 function App() {
   return (
     <div>
-      <h2>Começo do CryptoGuardian </h2>
+      <h2>Começo do DevCurrency </h2>
     </div>
   );
 }
