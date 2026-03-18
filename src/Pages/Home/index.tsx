@@ -6,7 +6,7 @@ export function Home() {
       <form className={style.form}>
         <input type="text" placeholder="Digite o nome da moeda" />
         <button type="submit">
-          <BsSearch size={10} color="#fff" />
+          <BsSearch size={32} color="#fff" />
         </button>
       </form>
     </main>
