@@ -20,3 +20,59 @@
 .form button {
   background: transparent;
 }
+
+/* Estilização da tabela */
+
+table {
+  border-collapse: separate;
+  border-spacing: 0px 14px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 16px;
+  margin: 0.5em 0.75em;
+}
+
+th {
+  color: #fff;
+}
+
+.tr {
+  background-color: #1d1c20;
+}
+
+td:first-child,
+th:first-child {
+  border-radius: 5px;
+}
+td:last-child,
+th:last-child {
+  border-radius: 5px;
+}
+
+table th,
+table td {
+  padding: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.td {
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
+}
+
+.tdprofit {
+  font-weight: bold;
+  color: rgb(44, 183, 44);
+}
+
+.tdlost {
+  color: rgb(253, 9, 9);
+  font-weight: bold;
+}
