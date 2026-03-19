@@ -76,3 +76,41 @@ table td {
   color: rgb(253, 9, 9);
   font-weight: bold;
 }
+
+/* Versão Mobile */
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    padding: 0;
+  }
+
+  .tr {
+    border: 1px solid #ddd;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  table td {
+    border-bottom: 1px solid rgba(221, 221, 221, 0.17);
+    display: block;
+    text-align: right;
+    font-size: 14px;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

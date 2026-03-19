@@ -14,13 +14,16 @@ export function Home() {
       {/* Tabela com as informações das Moedas vinda da Api  */}
       {/* Cabeçalho*/}
       <table>
-        <tr>
-          <th scope="col">Moeda</th>
-          <th scope="col">Valor Mercado</th>
-          <th scope="col">Preço</th>
-          <th scope="col">Volume</th>
-          <th scope="col">Mudança 24h</th>
-        </tr>
+        <thead>
+          <tr>
+            <th scope="col">Moeda</th>
+            <th scope="col">Valor Mercado</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Volume</th>
+            <th scope="col">Mudança 24h</th>
+          </tr>
+        </thead>
+
         {/* Corpo da Tabela  */}
         <tbody id="tbody">
           <tr className={style.tr}>
