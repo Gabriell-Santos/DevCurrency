@@ -1,13 +1,17 @@
-import { useState, type FormEvent } from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 export function Home() {
+  // Instanciando o Navigate
+  const navigate = useNavigate();
   // Chamando o useState do campo input
   const [input, setinput] = useState("");
-  function HandleSubmit(event: FormEvent) {
+  function HandleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    console.log(input);
+    // não procura nada se o campo estiver vazio
+    if (input === "") return;
+    navigate(`/detail/${input}`);
   }
 
   return (
@@ -62,6 +66,7 @@ export function Home() {
           </tr>
         </tbody>
       </table>
+      <button className={style.buttonMore}>Buscar mais....</button>
     </main>
   );
 }

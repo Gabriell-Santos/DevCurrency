@@ -77,6 +77,16 @@ table td {
   font-weight: bold;
 }
 
+.buttonMore {
+  background-color: rgb(23, 133, 133);
+  color: #fff;
+  padding: 14px 8px;
+  margin: 18px 0;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
 /* Versão Mobile */
 
 @media screen and (max-width: 600px) {
