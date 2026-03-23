@@ -1,11 +1,24 @@
+import { useState, type FormEvent } from "react";
 import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import style from "./style.module.css";
 export function Home() {
+  // Chamando o useState do campo input
+  const [input, setinput] = useState("");
+  function HandleSubmit(event: FormEvent) {
+    event.preventDefault();
+    console.log(input);
+  }
+
   return (
     <main className={style.container}>
-      <form className={style.form}>
-        <input type="text" placeholder="Digite o nome da moeda" />
+      <form className={style.form} onSubmit={HandleSubmit}>
+        <input
+          type="text"
+          placeholder="Digite o nome da moeda"
+          value={input}
+          onChange={(e) => setinput(e.target.value)}
+        />
         <button type="submit">
           <BsSearch size={32} color="#fff" />
         </button>
