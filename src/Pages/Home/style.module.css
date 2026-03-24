@@ -89,7 +89,7 @@ table td {
 
 .name {
   display: flex;
-  gap: 3px;
+  gap: 5px;
   align-items: center;
 }
 
