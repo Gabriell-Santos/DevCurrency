@@ -26,16 +26,17 @@ interface Dataprops {
 export function Home() {
   // Instanciando o Navigate
   const navigate = useNavigate();
-  const [input, setinput] = useState("");
+  const [input, setinput] = useState<string>("");
   const [coins, setCoins] = useState<CoinProps[]>([]);
+  const [offset, SetOffset] = useState<number>(0);
   // Utilizando o UseEffect para chamar a api
   useEffect(() => {
     // Aqui Chama a função da Api
     getData();
-  }, []);
+  }, [offset]);
 
   async function getData() {
-    fetch("https://rest.coincap.io/v3/assets?limit=10&offset=0")
+    fetch(`https://rest.coincap.io/v3/assets?limit=10&offset=${offset}`)
       .then((response) => response.json())
       .then((data: Dataprops) => {
         const coinsData = data.data;
@@ -75,7 +76,8 @@ export function Home() {
           return formated;
         });
         //console.log(formatedResults);
-        setCoins(formatedResults);
+        const ViewCoins = [...coins, ...formatedResults];
+        setCoins(ViewCoins);
       });
   }
 
@@ -87,7 +89,7 @@ export function Home() {
   }
 
   function handleGetMore() {
-    alert("Quer mais safado");
+    return offset === 0 ? SetOffset(10) : SetOffset(offset + 10);
   }
 
   return (
