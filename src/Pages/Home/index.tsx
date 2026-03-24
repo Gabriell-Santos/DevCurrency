@@ -16,7 +16,7 @@ interface CoinProps {
   formatedPrice?: string;
   formatedMark?: string;
   formatedVol?: string;
-  formatedPorcent?: string;
+  formatedPorcent: string;
 }
 
 interface Dataprops {
@@ -39,21 +39,24 @@ export function Home() {
       .then((response) => response.json())
       .then((data: Dataprops) => {
         const coinsData = data.data;
+
+        // Novas formatações para os dados da Api
         const Newprice = Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
+          notation: "compact",
         });
-        const formatedMarkCompact = Intl.NumberFormat("en-US", {
+        const NewmarkPrice = Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
           notation: "compact",
         });
-        const formatedVol = Intl.NumberFormat("en-US", {
+        const NewVol = Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
           notation: "compact",
         });
-        const formatedPorcent = Intl.NumberFormat("en-US", {
+        const NewPorcent = Intl.NumberFormat("en-US", {
           style: "percent",
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
@@ -63,9 +66,9 @@ export function Home() {
           const formated = {
             ...item,
             formatedPrice: Newprice.format(Number(item.priceUsd)),
-            formatedMark: formatedMarkCompact.format(Number(item.marketCapUsd)),
-            formatedVol: formatedVol.format(Number(item.volumeUsd24Hr)),
-            formatedPorcent: formatedPorcent.format(
+            formatedMark: NewmarkPrice.format(Number(item.marketCapUsd)),
+            formatedVol: NewVol.format(Number(item.volumeUsd24Hr)),
+            formatedPorcent: NewPorcent.format(
               Number(item.changePercent24Hr) / 100,
             ),
           };
@@ -121,12 +124,7 @@ export function Home() {
               <tr className={style.tr} key={item.id}>
                 <td className={style.td} data-label="Moeda">
                   <div className={style.name}>
-                    <img
-                      className={style.logo}
-                      src={`https://assets.coincap.io/assets/icons/${item.symbol.toLocaleLowerCase()}@2x.png`}
-                      alt="Logo da Moeda"
-                    />
-                    <Link to={`/detail/${item.id} `}>
+                    <Link to={`/detail/${input} `}>
                       <span>
                         {item.name} | {item.symbol}
                       </span>
@@ -134,13 +132,13 @@ export function Home() {
                   </div>
                 </td>
                 <td className={style.td} data-label="Valor Mercado">
-                  {item.formatedMark}
+                  <span> {item.formatedMark} </span>
                 </td>
                 <td className={style.td} data-label="Preço">
-                  {item.formatedPrice}
+                  <span> {item.formatedPrice} </span>
                 </td>
                 <td className={style.td} data-label="Volume">
-                  {item.formatedVol}
+                  <span> {item.formatedVol} </span>
                 </td>
                 <td
                   className={
