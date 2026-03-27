@@ -3,8 +3,22 @@ import { useEffect, useState } from "react";
 
 export function Detail() {
   const { id } = useParams();
-  const [coin, setCoin] = useState<object>();
+  const [coin, setCoin] = useState<DataCoin>();
   const navigate = useNavigate();
+
+  interface DataCoin {
+    id: string;
+    name: string;
+    symbol: string;
+    link: string;
+    image: string;
+    description: string;
+    rank: string;
+    markCap: string;
+    porcent24h: string;
+    formatedMarkCap?: string;
+  }
+
   useEffect(() => {
     async function getData() {
       try {
@@ -13,12 +27,12 @@ export function Detail() {
         );
         const data = await ResponseApi.json();
 
-        const FormatedCoin = {
+        const FormatedCoin: DataCoin = {
           id: data.id,
           name: data.name,
           symbol: data.symbol,
           link: data.links?.homepage?.[0],
-          image: data.image.thumb,
+          image: data.image?.thumb,
           description:
             data.description?.pt ||
             data.description?.en ||
@@ -37,10 +51,11 @@ export function Detail() {
       }
     }
     getData();
-  }, [id]);
+  }, [id, navigate]);
   return (
     <div>
       <h2> Detalhes do Crypto {id} </h2>
+      <h2> Nome: {coin?.name} </h2>
     </div>
   );
 }
