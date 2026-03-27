@@ -17,6 +17,27 @@ export function Detail() {
     markCap: string;
     porcent24h: string;
     formatedMarkCap?: string;
+    formatedPorcent24h?: string;
+  }
+
+  // Formatar valor de mercado
+  function FormatedMarkCap(value: string): string {
+    const ValueMark = Number(value);
+    return Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      notation: "compact",
+    }).format(ValueMark);
+  }
+
+  // formatando a porcentagem
+  function FormatedPorcent(value: string): string {
+    const ValuePorcent = Number(value);
+    return Intl.NumberFormat("en-US", {
+      style: "percent",
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }).format(ValuePorcent / 100);
   }
 
   useEffect(() => {
@@ -40,6 +61,10 @@ export function Detail() {
           rank: data.market_cap_rank,
           markCap: data.market_data?.market_cap?.usd,
           porcent24h: data.market_data?.price_change_percentage_24h,
+          formatedMarkCap: FormatedMarkCap(data.market_data?.market_cap?.usd),
+          formatedPorcent24h: FormatedPorcent(
+            data.market_data?.price_change_percentage_24h,
+          ),
         };
 
         setCoin(FormatedCoin);
