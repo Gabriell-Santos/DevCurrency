@@ -1,9 +1,10 @@
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import style from "./style.module.css";
 export function Detail() {
   const { id } = useParams();
   const [coin, setCoin] = useState<DataCoin>();
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   interface DataCoin {
@@ -12,7 +13,6 @@ export function Detail() {
     symbol: string;
     link: string;
     image: string;
-    description: string;
     rank: string;
     markCap: string;
     porcent24h: string;
@@ -43,6 +43,8 @@ export function Detail() {
   useEffect(() => {
     async function getData() {
       try {
+        // Inicia o loading
+        setLoading(true);
         const ResponseApi = await fetch(
           `https://api.coingecko.com/api/v3/coins/${id}`,
         );
@@ -54,10 +56,6 @@ export function Detail() {
           symbol: data.symbol,
           link: data.links?.homepage?.[0],
           image: data.image?.thumb,
-          description:
-            data.description?.pt ||
-            data.description?.en ||
-            "Descrição indisponível para essa moeda",
           rank: data.market_cap_rank,
           markCap: data.market_data?.market_cap?.usd,
           porcent24h: data.market_data?.price_change_percentage_24h,
@@ -71,18 +69,60 @@ export function Detail() {
         console.log(FormatedCoin);
       } catch (error) {
         alert("Erro na Página");
-        navigate("/");
+        console.log(error);
         return;
+      } finally {
+        // Finaliza o loading em ambos o caso
+        setLoading(false);
       }
     }
     getData();
   }, [id, navigate]);
+
+  // Mensagem Informando que está buscando os dados
+  if (loading) {
+    <div className={style.loadingContainer}>
+      <p>Buscando as informações</p>
+    </div>;
+  }
+
   return (
-    <div>
-      <h2> Detalhes do Crypto {id} </h2>
-      <h2> Nome: {coin?.name} </h2>
+    <div className={style.detailContainer}>
+      <div className={style.header}>
+        <img className={style.image} src={coin?.image} alt={coin?.name} />
+        <div className={style.title}>
+          <h1>
+            {coin?.name} || {coin?.symbol.toLocaleLowerCase()}
+          </h1>
+          <span className={style.rank}> Rank : {coin?.rank} </span>
+        </div>
+      </div>
+
+      {/* Informações do mercado */}
+      <div className={style.infoMark}>
+        <div className={style.inforCard}>
+          <h2>Capitalização do Mercado</h2>
+          <p className={style.markCap}> {coin?.formatedMarkCap} </p>
+        </div>
+        <div>
+          <div className={style.inforCard}>
+            <h3>Variação 24 horas</h3>
+            <p
+              className={`${style.porcent} ${Number(coin?.porcent24h) >= 0 ? style.positve : style.negative} `}
+            >
+              {coin?.formatedPorcent24h}{" "}
+            </p>
+          </div>
+        </div>
+
+        {/* Link para mais detalhes da moeda */}
+        {coin?.link && (
+          <div className={style.link}>
+            <h2>Link para mais Detalhes</h2>
+            <a href={coin.link}>Site Oficial</a>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
-
-// fetch(`https://api.coingecko.com/api/v3/coins/${id}`
