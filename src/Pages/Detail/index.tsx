@@ -43,8 +43,6 @@ export function Detail() {
   useEffect(() => {
     async function getData() {
       try {
-        // Inicia o loading
-        setLoading(true);
         const ResponseApi = await fetch(
           `https://api.coingecko.com/api/v3/coins/${id}`,
         );
@@ -66,13 +64,12 @@ export function Detail() {
         };
 
         setCoin(FormatedCoin);
+
         console.log(FormatedCoin);
       } catch (error) {
         alert("Erro na Página");
         console.log(error);
-        return;
       } finally {
-        // Finaliza o loading em ambos o caso
         setLoading(false);
       }
     }
@@ -80,10 +77,12 @@ export function Detail() {
   }, [id, navigate]);
 
   // Mensagem Informando que está buscando os dados
-  if (loading) {
-    <div className={style.loadingContainer}>
-      <p>Buscando as informações</p>
-    </div>;
+  if (loading || !coin) {
+    return (
+      <div className={style.loadingContainer}>
+        <p>Buscando as informações</p>
+      </div>
+    );
   }
 
   return (
@@ -92,7 +91,7 @@ export function Detail() {
         <img className={style.image} src={coin?.image} alt={coin?.name} />
         <div className={style.title}>
           <h1>
-            {coin?.name} || {coin?.symbol.toLocaleLowerCase()}
+            {coin.name} ({coin.symbol.toUpperCase()})
           </h1>
           <span className={style.rank}> Rank : {coin?.rank} </span>
         </div>
@@ -108,9 +107,9 @@ export function Detail() {
           <div className={style.inforCard}>
             <h3>Variação 24 horas</h3>
             <p
-              className={`${style.porcent} ${Number(coin?.porcent24h) >= 0 ? style.positve : style.negative} `}
+              className={`${style.porcent} ${Number(coin?.porcent24h) >= 0 ? style.positive : style.negative} `}
             >
-              {coin?.formatedPorcent24h}{" "}
+              {coin?.formatedPorcent24h}
             </p>
           </div>
         </div>
