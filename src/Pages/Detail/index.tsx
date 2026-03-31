@@ -4,7 +4,7 @@ import style from "./style.module.css";
 export function Detail() {
   const { id } = useParams();
   const [coin, setCoin] = useState<DataCoin>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   interface DataCoin {

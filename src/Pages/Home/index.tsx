@@ -29,6 +29,7 @@ export function Home() {
   const [input, setinput] = useState<string>("");
   const [coins, setCoins] = useState<CoinProps[]>([]);
   const [offset, setOffset] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // Utilizando o UseEffect para chamar a api
   useEffect(() => {
@@ -78,6 +79,7 @@ export function Home() {
         });
         const ViewCoins = [...coins, ...formatedResults];
         setCoins(ViewCoins);
+        setLoading(false);
       });
   }
 
@@ -90,6 +92,15 @@ export function Home() {
 
   function handleGetMore() {
     return offset === 0 ? setOffset(10) : setOffset(offset + 10);
+  }
+
+  // Mensagem Informando que está buscando os dados
+  if (loading) {
+    return (
+      <div className={style.loading}>
+        <p> Carregando as informações </p>
+      </div>
+    );
   }
 
   return (
