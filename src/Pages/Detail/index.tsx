@@ -64,11 +64,9 @@ export function Detail() {
         };
 
         setCoin(FormatedCoin);
-
-        console.log(FormatedCoin);
       } catch (error) {
         alert("Erro na Página");
-        console.log(error);
+        navigate("/");
       } finally {
         setLoading(false);
       }
@@ -90,9 +88,7 @@ export function Detail() {
       <div className={style.header}>
         <img className={style.image} src={coin?.image} alt={coin?.name} />
         <div className={style.title}>
-          <h1>
-            {coin.name} ({coin.symbol.toUpperCase()})
-          </h1>
+          <h1>{coin.name}</h1>
           <span className={style.rank}> Rank : {coin?.rank} </span>
         </div>
       </div>
