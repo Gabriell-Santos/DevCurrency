@@ -30,6 +30,8 @@ export function Home() {
   const [coins, setCoins] = useState<CoinProps[]>([]);
   const [offset, setOffset] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const [serchError, setSearchError] = useState<boolean>(false);
+  const [mensageError, setMensageError] = useState<string>();
 
   // Utilizando o UseEffect para chamar a api
   useEffect(() => {
@@ -82,12 +84,41 @@ export function Home() {
         setLoading(false);
       });
   }
+  // função que verifica se a moeda existe
+  async function verifyCoinExists(coinId: string): Promise<boolean> {
+    try {
+      const response = await fetch(
+        `https://rest.coincap.io/v3/assets/${coinId.toLowerCase()}`,
+      );
+      if (response.status === 200) {
+        return true;
+      }
+      if (response.status === 404) {
+        return false;
+      }
+      return response.ok;
+    } catch (error) {
+      console.log("erro na aplicação" + error);
+      return false;
+    }
+  }
 
-  function HandleSubmit(event: React.FormEvent) {
+  async function HandleSubmit(event: React.FormEvent) {
     event.preventDefault();
     // não procura nada se o campo estiver vazio
     if (input === "") return;
-    navigate(`/detail/${input}`);
+
+    setSearchError(true);
+
+    const exists = await verifyCoinExists(input);
+    setSearchError(false);
+
+    if (exists) {
+      return navigate(`/detail/${input}`);
+    } else {
+      setMensageError(`A moeda ${input}, não existe`);
+      setinput("");
+    }
   }
 
   function handleGetMore() {
@@ -116,6 +147,12 @@ export function Home() {
           <BsSearch size={32} color="#fff" />
         </button>
       </form>
+      {/* Mensagem de erro caso não encontrar moeda */}
+      {mensageError && (
+        <div className={style.CoinError}>
+          <span> {mensageError} </span>
+        </div>
+      )}
 
       {/* Tabela com as informações das Moedas vinda da Api  */}
       {/* Cabeçalho*/}
