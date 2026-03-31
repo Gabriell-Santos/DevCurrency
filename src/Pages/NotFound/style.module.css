@@ -1,0 +1,47 @@
+.container {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container h2 {
+  padding-bottom: 20px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.container a {
+  color: #4c989d;
+  font-weight: bold;
+}
+
+.container a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .container {
+    height: 50vh;
+    padding: 0 16px;
+    background-color: rgba(211, 207, 207, 0.741);
+    margin: 0 10px;
+    border-radius: 30px;
+  }
+
+  .container h2 {
+    font-size: 22px;
+    padding-bottom: 12px;
+    text-align: center;
+    color: black;
+  }
+
+  .container a {
+    font-size: 14px;
+    padding: 8px 0;
+    display: inline-block;
+    color: black;
+  }
+}
