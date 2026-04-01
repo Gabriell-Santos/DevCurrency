@@ -30,7 +30,6 @@ export function Home() {
   const [coins, setCoins] = useState<CoinProps[]>([]);
   const [offset, setOffset] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-
   const [mensageError, setMensageError] = useState<string>();
 
   // Utilizando o UseEffect para chamar a api
@@ -103,7 +102,7 @@ export function Home() {
       return false;
     }
   }
-
+  // Função de busca da moeda
   async function HandleSubmit(event: React.FormEvent) {
     event.preventDefault();
     // não procura nada se o campo estiver vazio
@@ -116,7 +115,7 @@ export function Home() {
     if (exists) {
       return navigate(`/detail/${serchTerm}`);
     } else {
-      setMensageError(`A moeda ${input}, não existe`);
+      setMensageError(`A moeda "${input}", não existe`);
       setinput("");
     }
   }

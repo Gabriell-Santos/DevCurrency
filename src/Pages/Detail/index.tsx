@@ -114,7 +114,9 @@ export function Detail() {
         {coin?.link && (
           <div className={style.link}>
             <h2>Link para mais Detalhes</h2>
-            <a href={coin.link}>Site Oficial</a>
+            <a href={coin.link} target="_blank">
+              Site Oficial
+            </a>
           </div>
         )}
       </div>
