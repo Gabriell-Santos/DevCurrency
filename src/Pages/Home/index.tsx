@@ -115,6 +115,7 @@ export function Home() {
       navigate(`/detail/${normalizeValue}`);
     } else {
       setMensageError(`A moeda "${input}", não existe... `);
+      setinput("");
     }
   }
 
