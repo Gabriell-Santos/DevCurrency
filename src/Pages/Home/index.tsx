@@ -30,7 +30,7 @@ export function Home() {
   const [coins, setCoins] = useState<CoinProps[]>([]);
   const [offset, setOffset] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-  const [serchError, setSearchError] = useState<boolean>(false);
+
   const [mensageError, setMensageError] = useState<string>();
 
   // Utilizando o UseEffect para chamar a api
@@ -40,7 +40,7 @@ export function Home() {
   }, [offset]);
 
   async function getData() {
-    fetch(`https://rest.coincap.io/v3/assets?limit=10&offset=${offset} `)
+    fetch(`https://rest.coincap.io/v3/assets?limit=10&offset=${offset}`)
       .then((response) => response.json())
       .then((data: Dataprops) => {
         const coinsData = data.data;
@@ -87,8 +87,9 @@ export function Home() {
   // função que verifica se a moeda existe
   async function verifyCoinExists(coinId: string): Promise<boolean> {
     try {
+      const normalizeId = coinId.toLowerCase().trim();
       const response = await fetch(
-        `https://rest.coincap.io/v3/assets/${coinId.toLowerCase()}`,
+        `https://rest.coincap.io/v3/assets/${normalizeId}`,
       );
       if (response.status === 200) {
         return true;
@@ -108,13 +109,12 @@ export function Home() {
     // não procura nada se o campo estiver vazio
     if (input === "") return;
 
-    setSearchError(true);
+    const serchTerm = input.trim().toLowerCase();
 
-    const exists = await verifyCoinExists(input);
-    setSearchError(false);
+    const exists = await verifyCoinExists(serchTerm);
 
     if (exists) {
-      return navigate(`/detail/${input}`);
+      return navigate(`/detail/${serchTerm}`);
     } else {
       setMensageError(`A moeda ${input}, não existe`);
       setinput("");
