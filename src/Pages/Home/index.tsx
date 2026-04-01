@@ -84,39 +84,37 @@ export function Home() {
       });
   }
   // função que verifica se a moeda existe
-  async function verifyCoinExists(coinId: string): Promise<boolean> {
+  async function verifyCoinExists(valueInput: string): Promise<boolean> {
     try {
-      const normalizeId = coinId.toLowerCase().trim();
+      const serchValue = valueInput.trim().toLowerCase();
       const response = await fetch(
-        `https://rest.coincap.io/v3/assets/${normalizeId}`,
+        `https://rest.coincap.io/v3/assets/${serchValue}`,
       );
       if (response.status === 200) {
         return true;
-      }
-      if (response.status === 404) {
+      } else {
         return false;
       }
       return response.ok;
     } catch (error) {
-      console.log("erro na aplicação" + error);
+      console.log("Erro encontrado:" + error);
       return false;
     }
   }
+
   // Função de busca da moeda
   async function HandleSubmit(event: React.FormEvent) {
     event.preventDefault();
     // não procura nada se o campo estiver vazio
     if (input === "") return;
 
-    const serchTerm = input.trim().toLowerCase();
-
-    const exists = await verifyCoinExists(serchTerm);
-
+    const normalizeValue = input.trim().toLowerCase();
+    const exists = await verifyCoinExists(normalizeValue);
+    // Trativa caso a moeda exista ou não
     if (exists) {
-      return navigate(`/detail/${serchTerm}`);
+      navigate(`/detail/${normalizeValue}`);
     } else {
-      setMensageError(`A moeda "${input}", não existe`);
-      setinput("");
+      setMensageError(`A moeda "${input}", não existe... `);
     }
   }
 
@@ -149,10 +147,9 @@ export function Home() {
       {/* Mensagem de erro caso não encontrar moeda */}
       {mensageError && (
         <div className={style.CoinError}>
-          <span> {mensageError} </span>
+          <p> {mensageError} </p>
         </div>
       )}
-
       {/* Tabela com as informações das Moedas vinda da Api  */}
       {/* Cabeçalho*/}
       <table>
