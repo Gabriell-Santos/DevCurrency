@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+# 💰 DevCurrency
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Acompanhe o mercado de criptomoedas em tempo real!
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![CSS Modules](https://img.shields.io/badge/CSS_Modules-000000?style=for-the-badge&logo=css3&logoColor=1572B6)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+DevCurrency é uma aplicação web moderna que permite acompanhar criptomoedas com dados atualizados em **tempo real** via API da [CoinCap](https://docs.coincap.io/). Desenvolvida com foco em performance, tipagem segura e uma experiência de usuário fluida.
 
-## React Compiler
+## 📸 Demonstração
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<div align="center">
+  <img src="./tela.png" alt="Preview do DevCurrency" width="900">
+  <br>
+  <em>Tela principal da aplicação com listagem de criptomoedas</em>
+</div>
 
-## Expanding the ESLint configuration
+## 🚀 Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Funcionalidade | Descrição |
+|----------------|-----------|
+| 📋 **Listagem completa** | Exibe as principais criptomoedas com preço, capitalização de mercado, volume e variação em 24h |
+| 🔍 **Busca inteligente** | Aceita maiúsculas, minúsculas ou qualquer formato (ex: "Bitcoin", "BITCOIN", "bitcoin") |
+| 📄 **Página de detalhes** | Informações completas da moeda com link oficial |
+| ✅ **Validação de moeda** | Verifica se a criptomoeda existe antes de navegar, com mensagem amigável |
+| ⏳ **Feedback visual** | Indicadores de loading durante requisições e mensagens de erro claras |
+| 📱 **Design responsivo** | Funciona perfeitamente em dispositivos móveis, tablets e desktops |
+| 🧹 **Limpeza automática** | Input é limpo automaticamente caso a moeda não seja encontrada |
+| 🧭 **Página 404** | Rota personalizada para páginas não encontradas |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📊 Dados exibidos na tabela
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Conforme a imagem de demonstração, a aplicação exibe para cada criptomoeda:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Coluna | Descrição |
+|--------|-----------|
+| 🪙 **Moeda** | Nome e símbolo (ex: Bitcoin \| BTC) |
+| 💰 **Valor Mercado** | Capitalização total de mercado |
+| 💵 **Preço** | Preço atual em USD |
+| 📈 **Volume** | Volume negociado em 24h |
+| 📉 **Mudança 24h** | Variação percentual nas últimas 24 horas (verde para positivo, vermelho para negativo) |
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tecnologias utilizadas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Tecnologia | Finalidade |
+|------------|-------------|
+| React | Interface de usuário |
+| TypeScript | Tipagem estática e segurança no código |
+| React Router DOM | Navegação entre páginas |
+| CSS Modules | Estilização organizada e escopada |
+| CoinCap API | Dados atualizados de criptomoedas |
+| Vite | Build rápida e ambiente de desenvolvimento |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📦 Como executar o projeto
+
+### Pré-requisitos
+
+- Node.js (versão 18 ou superior)
+- npm ou yarn
+
+### Passo a passo
+
+```bash
+# Clone o repositório
+git clone https://github.com/Gabriell-Santos/DevCurrency.git
+
+# Acesse a pasta do projeto
+cd DevCurrency
+
+# Instale as dependências
+npm install
+
+# Execute o projeto em modo desenvolvimento
+npm run dev
